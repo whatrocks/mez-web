@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { DateTime } from "luxon";
 
 class Email extends Component {
   componentDidMount() {
@@ -24,7 +25,11 @@ class Email extends Component {
               <div>{email.to.email_address}</div>
               <div>{email.subject}</div>
               <div>{email.body}</div>
-              <div>{email.dt_scheduled}</div>
+              <div>
+                {DateTime.fromISO(email.dt_scheduled).toLocaleString(
+                  DateTime.DATETIME_FULL
+                )}
+              </div>
               <div>{email.status}</div>
             </div>
           );
