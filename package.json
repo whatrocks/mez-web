@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bulma": "^0.6.2",
     "history": "^4.7.2",
     "luxon": "^0.4.0",
     "prettier": "^1.10.2",

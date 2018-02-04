@@ -5,14 +5,32 @@ import Home from "./Home";
 import About from "./About";
 import Email from "../containers/Email";
 
+import "./App.css";
+
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1>hello</h1>
-        <Link to="/">Mezcalendar</Link>
-        <Link to="/about">About</Link>
-        <Link to="/emails">Emails</Link>
+      <div className="container">
+        <nav className="navbar">
+          <div className="container">
+            <div className="navbar-brand">
+              <Link className="navbar-item" to="/">
+                <h1 style={{ fontSize: "1.5rem" }}>Mezcalendar</h1>
+              </Link>
+            </div>
+            <div className="navbar-menu">
+              <div className="navbar-end">
+                <Link className="navbar-item" to="/about">
+                  About
+                </Link>
+
+                <Link className="navbar-item" to="/emails">
+                  Emails
+                </Link>
+              </div>
+            </div>
+          </div>
+        </nav>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />

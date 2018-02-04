@@ -8,6 +8,7 @@ import createBrowserHistory from "history/createBrowserHistory";
 import { ConnectedRouter, routerMiddleware } from "react-router-redux";
 
 import "./index.css";
+import "bulma/css/bulma.css";
 import App from "./containers/App";
 import registerServiceWorker from "./registerServiceWorker";
 import reducer from "./reducers";
