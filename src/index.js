@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose } from "redux";
 import { withRouter } from "react-router-dom";
-import createHistory from "history/createBrowserHistory";
+import createBrowserHistory from "history/createBrowserHistory";
 import { ConnectedRouter, routerMiddleware } from "react-router-redux";
 
 import "./index.css";
@@ -12,9 +12,9 @@ import App from "./containers/App";
 import registerServiceWorker from "./registerServiceWorker";
 import reducer from "./reducers";
 
-const AppWithRouter = withRouter(App);
+const history = createBrowserHistory();
 
-const history = createHistory();
+const AppWithRouter = withRouter(App);
 const router = routerMiddleware(history);
 
 const store = createStore(
@@ -27,5 +27,12 @@ const store = createStore(
   )
 );
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <AppWithRouter />
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
