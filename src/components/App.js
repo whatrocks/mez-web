@@ -10,12 +10,15 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
-      <div className="container">
-        <nav className="navbar">
+      <div>
+        <nav className="navbar is-primary">
           <div className="container">
             <div className="navbar-brand">
-              <Link className="navbar-item" to="/">
-                <h1 style={{ fontSize: "1.5rem" }}>Mezcalendar</h1>
+              <Link to="/">
+                <figure className="image is-96x96">
+                  <img alt="logo" src="img/logo.jpg" />
+                </figure>
+                <h1>Mezcalendar</h1>
               </Link>
             </div>
             <div className="navbar-menu">

@@ -10,17 +10,13 @@ class Email extends Component {
   render() {
     const { emails } = this.props;
     return (
-      <div>
+      <div className="container">
         <h3>Emails</h3>
         {emails.map((email, index) => {
           return (
             <div
               key={index}
-              style={{
-                border: "1px solid grey",
-                margin: "1rem",
-                padding: "1rem"
-              }}
+              className={"box"}
             >
               <div>{email.to.email_address}</div>
               <div>{email.subject}</div>
@@ -30,7 +26,7 @@ class Email extends Component {
                   DateTime.DATETIME_FULL
                 )}
               </div>
-              <div>{email.status}</div>
+              <span className={"tag is-primary"}>{email.status}</span>
             </div>
           );
         })}
