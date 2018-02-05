@@ -15,10 +15,12 @@ class App extends Component {
           <div className="container">
             <div className="navbar-brand">
               <Link to="/">
-                <figure className="image is-96x96">
+                <div className="level-left">
+                <figure className="image is-96x96 level-item">
                   <img alt="logo" src="img/logo.jpg" />
                 </figure>
-                <h1>Mezcalendar</h1>
+                <h1 className="level-item title">Mezcalendar</h1>
+                </div>
               </Link>
             </div>
             <div className="navbar-menu">

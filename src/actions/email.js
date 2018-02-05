@@ -19,3 +19,18 @@ function receiveEmails(emails) {
     emails: emails
   };
 }
+
+export function postEmail(details) {
+  return dispatch => {
+    const json = JSON.stringify(details);
+    fetch(`http://127.0.0.1:7777/emails/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: json
+    })
+      .then(res => console.log("res: ", res))
+      .catch(err => console.error("err: ", err));
+  };
+}
