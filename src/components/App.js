@@ -11,15 +11,15 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar is-primary">
+        <nav className="navbar">
           <div className="container">
             <div className="navbar-brand">
               <Link to="/">
                 <div className="level-left">
-                <figure className="image is-96x96 level-item">
-                  <img alt="logo" src="img/logo.jpg" />
+                <figure className="image is-48x48 level-item">
+                  <img alt="logo" src="img/mez.png" />
                 </figure>
-                <h1 className="level-item title">Mezcalendar</h1>
+                <h1 className="level-item title">Mezcal</h1>
                 </div>
               </Link>
             </div>

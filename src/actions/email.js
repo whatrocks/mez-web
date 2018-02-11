@@ -5,7 +5,7 @@ export function fetchEmails() {
     dispatch({
       type: REQUEST_EMAILS
     });
-    fetch(`http://127.0.0.1:7777/emails/`, {
+    fetch(`http://127.0.0.1:7777/api/v1/emails/`, {
       accept: "application/json"
     })
       .then(res => res.json(), err => console.log("error"))
@@ -23,7 +23,7 @@ function receiveEmails(emails) {
 export function postEmail(details) {
   return dispatch => {
     const json = JSON.stringify(details);
-    fetch(`http://127.0.0.1:7777/emails/`, {
+    fetch(`http://127.0.0.1:7777/api/v1/emails/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -6,16 +6,12 @@ export default () => (
       <div className="hero-body">
         <div className="container has-text-centered">
           <h1 className="title">
-            Your future self says{" "}
-            <span role="img" aria-label="hands">
-              🙌
-            </span>
+            Your calendar feed, built for people who forget things.
           </h1>
           <h2 className="subtitle">
-            Mezcalendar is a new sort of calendar, built for people who forget
-            things.
+            Schedule emails, text messages, Facebook posts, or Tweets
           </h2>
-          <a class="button is-primary">Sign Up For Free</a>
+          <a className="button is-primary">Sign Up For Free</a>
         </div>
       </div>
     </section>

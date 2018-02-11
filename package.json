@@ -5,6 +5,7 @@
   "dependencies": {
     "bulma": "^0.6.2",
     "history": "^4.7.2",
+    "jwt-decode": "^2.2.0",
     "luxon": "^0.4.0",
     "prettier": "^1.10.2",
     "react": "^16.2.0",
@@ -14,6 +15,8 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.1.0",
     "redux": "^3.7.2",
+    "redux-persist": "^5.7.0",
+    "redux-persist-transform-filter": "^0.0.16",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
