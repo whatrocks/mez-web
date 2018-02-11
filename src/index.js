@@ -9,6 +9,7 @@ import { ConnectedRouter, routerMiddleware } from "react-router-redux";
 import { createFilter } from "redux-persist-transform-filter";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 import "./index.css";
 import "bulma/css/bulma.css";
@@ -36,16 +37,15 @@ const persistedReducer = persistReducer(
 const AppWithRouter = withRouter(App);
 const router = routerMiddleware(history);
 
+const composeEnhancers = composeWithDevTools({});
+
 const store = createStore(
   persistedReducer,
-  compose(
+  composeEnhancers(
     applyMiddleware(
       thunk, 
       router
-    ),
-    process.env.NODE_ENV !== "production" && window.devToolsExtension
-      ? window.devToolsExtension()
-      : f => f
+    )
   )
 );
 
