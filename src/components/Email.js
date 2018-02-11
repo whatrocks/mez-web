@@ -29,18 +29,17 @@ class Email extends Component {
     const { dispatch, postEmail, accessToken } = this.props;
     const { form } = this.state;
     const dt = DateTime.local();
-    dt.plus({ minutes: 1 });
-    const dt_string = dt.toISO();
+    const send_dt = dt.plus({ minutes: 3 });
+    const send_dt_string = send_dt.toISO();
     const details = {
       to: {
         email_address: form.to
       },
       body: form.body,
       subject: form.subject,
-      dt_scheduled: dt_string,
+      dt_scheduled: send_dt_string,
       owner: 1
     };
-    console.log("details:", details);
     dispatch(postEmail(accessToken, details));
   }
 
