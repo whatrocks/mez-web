@@ -26,7 +26,7 @@ const persistedFilter = createFilter(
 
 const persistedReducer = persistReducer(
   {
-    key: "polls",
+    key: "mez",
     storage: storage,
     whitelist: ['auth'],
     transforms: [persistedFilter]

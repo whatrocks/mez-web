@@ -11,8 +11,15 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case authActions.LOGIN_SUCCESS:
       return {
-        access: action.payload.access,
-        ...jwtDecode(action.payload.access)
+        access:  {
+          token: action.payload.access,
+          ...jwtDecode(action.payload.access)
+        },
+        refresh: {
+          token: action.payload.refresh,
+          ...jwtDecode(action.payload.refresh)
+        },
+        errors: {}
       };
     case authActions.TOKEN_RECEIVED:
       return {

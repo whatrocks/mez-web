@@ -29,5 +29,23 @@ function loginSuccess(res) {
 }
 
 export const refreshAccessToken = token => {
-  //TODO
+  return dispatch => {
+    fetch(`http://127.0.0.1:7777/api/auth/token/refresh/`, {
+      accept: "application/json",
+      body: JSON.stringify( {refresh: token}),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => res.json(), err => console.log("error"))
+      .then(res => dispatch(tokenRefreshed(res)));
+  };
 };
+
+function tokenRefreshed(res) {
+  return {
+    type: TOKEN_RECEIVED,
+    payload: res
+  }
+}
