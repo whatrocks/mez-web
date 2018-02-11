@@ -7,7 +7,6 @@ import { login } from "../actions/auth";
 import { authErrors, isAuthenticated } from "../reducers";
 
 const Login = (props) => {
-  console.log("props is Authenticated: ", props.isAuthenticated);
   if (props.isAuthenticated) {
     return <Redirect to="/" />
   }

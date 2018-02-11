@@ -11,8 +11,8 @@ class Email extends Component {
     }
   };
   componentDidMount() {
-    const { fetchEmails } = this.props;
-    fetchEmails();
+    const { fetchEmails, accessToken } = this.props;
+    fetchEmails(accessToken);
   }
 
   editField(field, value) {
@@ -26,7 +26,7 @@ class Email extends Component {
   }
 
   submitForm() {
-    const { dispatch, postEmail } = this.props;
+    const { dispatch, postEmail, accessToken } = this.props;
     const { form } = this.state;
     const dt = DateTime.local();
     dt.plus({ minutes: 1 });
@@ -41,7 +41,7 @@ class Email extends Component {
       owner: 1
     };
     console.log("details:", details);
-    dispatch(postEmail(details))
+    dispatch(postEmail(accessToken, details));
   }
 
   render() {

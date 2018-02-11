@@ -8,7 +8,7 @@ export const TOKEN_FAILURE = "TOKEN_FAILURE";
 
 export const login = (username, password) => {
   return dispatch => {
-    fetch(`http://127.0.0.1:7777/api/auth/token/obtain/`, {
+    fetch(`http://127.0.0.1:7777/api/v1/auth/token/obtain/`, {
       accept: "application/json",
       body: JSON.stringify( {username, password}),
       method: "POST",
@@ -30,7 +30,7 @@ function loginSuccess(res) {
 
 export const refreshAccessToken = token => {
   return dispatch => {
-    fetch(`http://127.0.0.1:7777/api/auth/token/refresh/`, {
+    fetch(`http://127.0.0.1:7777/api/v1/auth/token/refresh/`, {
       accept: "application/json",
       body: JSON.stringify( {refresh: token}),
       method: "POST",
