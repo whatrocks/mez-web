@@ -18,6 +18,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-persist": "^5.7.0",
     "redux-persist-transform-filter": "^0.0.16",
+    "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {

@@ -16,10 +16,10 @@ class App extends Component {
             <div className="navbar-brand">
               <Link to="/">
                 <div className="level-left">
-                <figure className="image is-48x48 level-item">
-                  <img alt="logo" src="img/mez.png" />
-                </figure>
-                <h1 className="level-item title">Mezcal</h1>
+                  <figure className="image is-48x48 level-item">
+                    <img alt="logo" src="img/mez.png" />
+                  </figure>
+                  <h1 className="level-item title">Mezcal</h1>
                 </div>
               </Link>
             </div>
@@ -41,19 +41,18 @@ class App extends Component {
           <Route exact path="/about" component={About} />
           <Route exact path="/emails" component={Email} />
         </Switch>
+        <footer className="footer">
+          <div className="container">
+            <div className="content has-text-centered">
+              <p>
+                This is my awesome footer
+              </p>
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }
 }
-
-// function PrivateRoute({ component: Component, authed, ...rest }) {
-//   return (
-//     <Route
-//       {...rest}
-//       render={props =>
-//         authed === true ? <Component {...props} /> : <Redirect to="/login" />}
-//     />
-//   );
-// }
 
 export default App;

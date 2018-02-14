@@ -66,3 +66,7 @@ function tokenRefreshed(res) {
     payload: res
   }
 }
+
+export const logout = () => {
+  console.log("I should clear the auth info and log out, also removing from local storage");
+}
