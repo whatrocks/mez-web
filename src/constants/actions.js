@@ -1,2 +1,0 @@
-export const REQUEST_EMAILS = "REQUEST_EMAILS";
-export const RECEIVE_EMAILS = "RECEIVE_EMAILS";

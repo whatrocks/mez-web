@@ -1,5 +1,7 @@
-import { REQUEST_EMAILS, RECEIVE_EMAILS } from "../constants/actions";
-import { withAuth } from "../reducers";
+// import { withAuth } from "../reducers";
+
+export const REQUEST_EMAILS = "REQUEST_EMAILS";
+export const RECEIVE_EMAILS = "RECEIVE_EMAILS";
 
 export function fetchEmails(token) {
   return dispatch => {
