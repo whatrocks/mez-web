@@ -1,18 +1,19 @@
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Email from "../components/Email";
-import * as EmailActions from "../actions/email";
 import { accessToken } from "../reducers";
+import { getEmails } from "../redux/email/selectors";
 
 function mapStateToProps(state) {
   return {
-    emails: state.email.emails,
+    emails: getEmails(state),
     accessToken: accessToken(state)
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(EmailActions, dispatch);
+  return { 
+    dispatch
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Email);

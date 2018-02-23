@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { DateTime } from "luxon";
 
+import { requestEmails } from "../redux/email/actions"
+
 class Email extends Component {
+  
   state = {
     form: {
       to: "",
@@ -10,9 +13,10 @@ class Email extends Component {
       datetime: ""
     }
   };
+
   componentDidMount() {
-    const { fetchEmails, accessToken } = this.props;
-    fetchEmails(accessToken);
+    const { fetchEmails, accessToken, dispatch } = this.props;
+    dispatch(requestEmails());
   }
 
   editField(field, value) {

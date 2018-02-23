@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
 
-import email from "./email";
+import email from "../redux/email/reducer";
 import auth, * as fromAuth from "./auth";
 
 export default combineReducers({

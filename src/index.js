@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import createBrowserHistory from "history/createBrowserHistory";
 import { ConnectedRouter, routerMiddleware } from "react-router-redux";
@@ -10,6 +10,7 @@ import { createFilter } from "redux-persist-transform-filter";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage";
 import { composeWithDevTools } from "redux-devtools-extension";
+import createSagaMiddleware from "redux-saga";
 
 import "./index.css";
 import "bulma/css/bulma.css";
@@ -19,6 +20,7 @@ import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import registerServiceWorker from "./registerServiceWorker";
 import reducer from "./reducers";
+import rootSaga from "./redux/saga"
 
 const history = createBrowserHistory();
 
@@ -38,18 +40,21 @@ const persistedReducer = persistReducer(
 const AppWithRouter = withRouter(App);
 const router = routerMiddleware(history);
 
-const composeEnhancers = composeWithDevTools({});
+let composer = process.env.NODE_ENV === "production" ? compose : composeWithDevTools;
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   persistedReducer,
-  composeEnhancers(
+  composer(
     applyMiddleware(
+      sagaMiddleware,
       thunk, 
       router
     )
   )
 );
-
+sagaMiddleware.run(rootSaga);
 persistStore(store)
 
 ReactDOM.render(

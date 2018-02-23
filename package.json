@@ -6,6 +6,7 @@
     "bulma": "^0.6.2",
     "history": "^4.7.2",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.5",
     "luxon": "^0.4.0",
     "prettier": "^1.10.2",
     "react": "^16.2.0",
