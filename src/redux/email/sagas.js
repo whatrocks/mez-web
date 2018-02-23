@@ -1,23 +1,23 @@
-import { all, takeEvery, call } from "redux-saga/effects";
+import { all, takeEvery, call, put } from "redux-saga/effects";
 import * as actions from "./actions";
 import * as api from "../../api";
 
 export default function* sagas() {
-  yield all([
-    takeEvery(actions.GET_EMAILS_REQUEST, getEmails)
-  ])
+  yield all([takeEvery(actions.GET_EMAILS_REQUEST, getEmails)]);
 }
 
 function* getEmails() {
-  const emails = yield call(api.get("/emails"));
-  console.log("emails are: ", emails);
-  // fetch(`http://127.0.0.1:7777/api/v1/emails/`, {
-  //     accept: "application/json",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   })
-  //     .then(res => res.json(), err => console.log("error"))
-  //     .then(res => dispatch(receiveEmails(res)));
+  try {
+    const res = yield call(fetchEmails);
+    yield put({ type: actions.GET_EMAILS_SUCCESS, payload: res });
+  } catch (err) {
+    yield put({ type: actions.GET_EMAILS_FAILURE });
+  }
 }
+
+function fetchEmails(){
+  return api.get("/emails")
+};
+
+
+

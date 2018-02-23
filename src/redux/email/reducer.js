@@ -11,7 +11,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         isFetching: false,
-        emails: action.emails.results
+        emails: action.payload.results
       };
     case actions.GET_EMAILS_FAILURE:
       return {

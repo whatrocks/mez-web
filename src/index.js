@@ -70,3 +70,5 @@ ReactDOM.render(
   document.getElementById("root")
 );
 registerServiceWorker();
+
+export const state = store.getState();

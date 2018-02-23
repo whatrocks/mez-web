@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { API_ROOT } from "../settings";
+import { state } from "../index";
+import * as auth from "../reducers/auth";
 
 const client = axios.create({
   baseURL: API_ROOT,
@@ -7,8 +9,8 @@ const client = axios.create({
 });
 
 client.interceptors.request.use((config) => {
-  const authToken = "blah";
-  if (authToken) {
+  const authToken = auth.accessToken(state);
+  if (authToken && auth.isAuthenticated(state)) {
     config.headers.Authorization = `Bearer ${authToken}`;
   }
   return config;

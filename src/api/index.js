@@ -1,8 +1,10 @@
 import axiosClient from "../middleware/axiosClient";
 
-export const get = (path) => {
-  axiosClient
+export const get = path => {
+  return axiosClient
     .get(path)
-    .then(res => console.log("res: ", res))
-    .catch(err => console.log("err: ", err));
-}
+    .then(res => res.data)
+    .catch(err => {
+      throw err;
+    });
+};
