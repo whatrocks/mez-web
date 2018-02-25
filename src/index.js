@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose } from "redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import createBrowserHistory from "history/createBrowserHistory";
@@ -19,7 +18,7 @@ import PrivateRoute from "./containers/PrivateRoute";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import registerServiceWorker from "./registerServiceWorker";
-import reducer from "./reducers";
+import reducer from "./redux/reducer";
 import rootSaga from "./redux/saga"
 
 const history = createBrowserHistory();
@@ -49,7 +48,6 @@ const store = createStore(
   composer(
     applyMiddleware(
       sagaMiddleware,
-      thunk, 
       router
     )
   )

@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import SignupForm from "../components/SignupForm";
-import { signup } from "../actions/auth";
-import { authErrors, isAuthenticated } from "../reducers";
+import { signup } from "../redux/auth/actions";
+import { authErrors, isAuthenticated } from "../redux/auth/selectors";
 
 const Signup = (props) => {
   if (props.isAuthenticated) {

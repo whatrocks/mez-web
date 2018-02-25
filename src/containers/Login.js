@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import LoginForm from "../components/LoginForm";
-import { login } from "../actions/auth";
-import { authErrors, isAuthenticated } from "../reducers";
+import { login } from "../redux/auth/actions";
+import { authErrors, isAuthenticated } from "../redux/auth/selectors";
 
 const Login = (props) => {
   if (props.isAuthenticated) {
