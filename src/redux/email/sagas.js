@@ -1,8 +1,8 @@
 import { all, takeEvery, call, put } from "redux-saga/effects";
 import * as actions from "./actions";
-import * as api from "../../api";
+import * as api from "../../utils/api";
 
-const path = "/emails";
+const path = "/emails/";
 
 export default function* sagas() {
   yield all([takeEvery(actions.GET_EMAILS_REQUEST, getEmails)]);

@@ -26,12 +26,12 @@ export const login = (username, password) => {
   }
 }
 
-export const refreshAccessToken = (token) => {
-  return {
-    type: POST_TOKEN_REQUEST,
-    payload: { token }
-  }
-}
+// export const refreshAccessToken = (token) => {
+//   return {
+//     type: POST_TOKEN_REQUEST,
+//     payload: { refresh: token }
+//   }
+// }
 
 export const logout = () => {
   return {

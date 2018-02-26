@@ -10,8 +10,9 @@ export const get = ({ path }) => {
 };
 
 export const post = ({ path, body }) => {
+  const json = JSON.stringify(body);
   return axiosClient
-    .post(path, body)
+    .post(path, json)
     .then(res => res.data)
     .catch(err => err);
 };

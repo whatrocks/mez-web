@@ -2,7 +2,6 @@ import jwtDecode from "jwt-decode";
 import * as actions from "./actions";
 
 export default (state = {}, action) => {
-  console.log("action: ", action);
   switch (action.type) {
     case actions.POST_LOGIN_SUCCESS:
       return {

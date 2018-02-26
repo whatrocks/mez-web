@@ -43,7 +43,7 @@ let composer = process.env.NODE_ENV === "production" ? compose : composeWithDevT
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(
+export const store = createStore(
   persistedReducer,
   composer(
     applyMiddleware(
@@ -68,5 +68,3 @@ ReactDOM.render(
   document.getElementById("root")
 );
 registerServiceWorker();
-
-export const state = store.getState();
