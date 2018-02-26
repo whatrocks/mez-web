@@ -26,13 +26,6 @@ export const login = (username, password) => {
   }
 }
 
-// export const refreshAccessToken = (token) => {
-//   return {
-//     type: POST_TOKEN_REQUEST,
-//     payload: { refresh: token }
-//   }
-// }
-
 export const logout = () => {
   return {
     type: POST_LOGOUT_REQUEST

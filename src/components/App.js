@@ -9,6 +9,7 @@ import "./App.css";
 
 class App extends Component {
   render() {
+    const { handleLogout } = this.props;
     return (
       <div>
         <nav className="navbar">
@@ -31,6 +32,9 @@ class App extends Component {
 
                 <Link className="navbar-item" to="/emails">
                   Emails
+                </Link>
+                <Link className="navbar-item" onClick={handleLogout} to="/">
+                  Sign Out
                 </Link>
               </div>
             </div>
