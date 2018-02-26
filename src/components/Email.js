@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { DateTime } from "luxon";
 
-import { requestEmails } from "../redux/email/actions"
-
 class Email extends Component {
   
   state = {
@@ -15,8 +13,8 @@ class Email extends Component {
   };
 
   componentDidMount() {
-    const { fetchEmails, accessToken, dispatch } = this.props;
-    dispatch(requestEmails());
+    const { requestEmails } = this.props;
+    requestEmails();
   }
 
   editField(field, value) {
@@ -30,7 +28,7 @@ class Email extends Component {
   }
 
   submitForm() {
-    const { dispatch, postEmail, accessToken } = this.props;
+    const { onSubmitEmail } = this.props;
     const { form } = this.state;
     const dt = DateTime.local();
     const send_dt = dt.plus({ minutes: 3 });
@@ -44,7 +42,7 @@ class Email extends Component {
       dt_scheduled: send_dt_string,
       owner: 1
     };
-    dispatch(postEmail(accessToken, details));
+    onSubmitEmail(details);
   }
 
   render() {

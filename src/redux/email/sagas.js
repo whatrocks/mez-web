@@ -5,7 +5,10 @@ import * as api from "../../utils/api";
 const path = "/emails/";
 
 export default function* sagas() {
-  yield all([takeEvery(actions.GET_EMAILS_REQUEST, getEmails)]);
+  yield all([
+    takeEvery(actions.GET_EMAILS_REQUEST, getEmails),
+    takeEvery(actions.POST_EMAIL_REQUEST, postEmail)
+  ]);
 }
 
 function* getEmails() {
@@ -21,6 +24,19 @@ function fetchEmails(){
   return api.get({ path: path })
 };
 
+function* postEmail(action) {
+  try {
+    yield call(submitEmail, action);
+    yield put({ type: actions.POST_EMAIL_SUCCESS });
+    yield put({ type: actions.GET_EMAILS_REQUEST });
+  } catch (err) {
+    yield put({ type: actions.POST_EMAIL_FAILURE });
+  }
+}
+
+function submitEmail(action) {
+  return api.post({ path: path, body: action.payload })
+}
 
 
 // export function postEmail(token, details) {
