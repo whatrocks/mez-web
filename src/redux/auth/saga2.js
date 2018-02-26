@@ -7,11 +7,10 @@ import { DateTime } from "luxon";
 import * as api from "../../utils/api";
 
 const LOGIN_PATH = "/auth/token/obtain/";
-// const SIGNUP_PATH = "/users/";
 const REFRESH_TOKEN_PATH = "/auth/token/refresh/";
+const SIGNUP_PATH = "/users/";
 
-// https://github.com/redux-saga/redux-saga/issues/14
-
+// NOTE: Reference can be found here: https://github.com/redux-saga/redux-saga/issues/14
 function* authorize(refreshToken) {
   try {
     const res = yield call(refresh, refreshToken);
@@ -30,7 +29,7 @@ function refresh(token) {
 function* authorizeLoop(access, refresh) {
   while (true) {
     console.log("i am auth loop");
-    // TODO: what if refresh is expired?
+    // TODO: What happens if the refresh token is expired?
     const { access: newAccessToken } = yield call(authorize, refresh);
     if (!newAccessToken) {
       return;
@@ -61,10 +60,19 @@ export default function* authFlowSaga() {
 
   while (true) {
     if (!access && !refresh) {
-      const { payload: credentials } = yield take(actions.POST_LOGIN_REQUEST, postLogin);
-      const res = yield call(postLogin, credentials);
-      access = res.access;
-      refresh = res.refresh;
+      const { login, signup } = yield race({
+        login: take(actions.POST_LOGIN_REQUEST),
+        signup: take(actions.POST_SIGNUP_REQUEST)
+      })
+      if (login) {
+        const res = yield call(postLogin, login);
+        access = res.access;
+        refresh = res.refresh;
+      } else if (signup) {
+        const res = yield call(postSignup, signup);
+        access = res.access;
+        refresh = res.refresh;
+      }
     }
 
     const { signOutAction } = yield race({
@@ -73,15 +81,15 @@ export default function* authFlowSaga() {
     }) 
     
     if (signOutAction) {
-      // yield call()
+      // TODO: Handle sign out action
       yield console.log("i should sign out now");
     }
   }
 }
 
-function* postLogin(credentials) {
+function* postLogin(action) {
   try {
-    const res = yield call(login, credentials);
+    const res = yield call(login, action);
     yield put({ type: actions.POST_LOGIN_SUCCESS, payload: res });
     return res;
   } catch (err) {
@@ -90,6 +98,32 @@ function* postLogin(credentials) {
   }
 }
 
-function login(credentials) {
-  return api.post({ path: LOGIN_PATH, body: credentials });
+function login(action) {
+  return api.post({ path: LOGIN_PATH, body: action.payload });
+}
+
+function* postSignup(action) {
+  try {
+    const res = yield call(signup, action);
+    yield put({ type: actions.POST_SIGNUP_SUCCESS, payload: res });
+    try {
+      const loginRes = yield call(login, action);
+      yield put({ type: actions.POST_LOGIN_SUCCESS, payload: loginRes });
+      return loginRes;
+    } catch (err) {
+      yield put({
+        type: actions.POST_LOGIN_FAILURE,
+        payload: { response: err }
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: actions.POST_SIGNUP_FAILURE,
+      payload: { response: err }
+    });
+  }
+}
+
+function signup(action) {
+  return api.post({ path: SIGNUP_PATH, body: action.payload });
 }
