@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Email from "../components/Email";
-import { accessToken } from "../reducers";
+import { accessToken } from "../redux/auth/selectors";
 import { getEmails } from "../redux/email/selectors";
 
 function mapStateToProps(state) {
