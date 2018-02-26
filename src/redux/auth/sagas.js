@@ -1,67 +1,128 @@
-// import { all, takeEvery, call, put } from "redux-saga/effects";
-// import * as actions from "./actions";
-// import * as api from "../../utils/api";
+import * as actions from "./actions";
+import { delay } from "redux-saga";
+import { take, race, call, put } from "redux-saga/effects";
+import jwtDecode from "jwt-decode";
+import { DateTime } from "luxon";
 
-// const LOGIN_PATH = "/auth/token/obtain/";
-// const SIGNUP_PATH = "/users/";
-// const REFRESH_TOKEN_PATH = "/auth/token/refresh/";
+import * as api from "../../utils/api";
 
-// export default function* sagas() {
-//   yield all([
-//     takeEvery(actions.POST_LOGIN_REQUEST, postLogin),
+const LOGIN_PATH = "/auth/token/obtain/";
+const REFRESH_TOKEN_PATH = "/auth/token/refresh/";
+const SIGNUP_PATH = "/users/";
 
-//   ]);
-//   yield all([takeEvery(actions.POST_SIGNUP_REQUEST, postSignup)]);
-//   yield all([takeEvery(actions.POST_TOKEN_REQUEST, postToken)]);
-// }
+// NOTE: Reference can be found here: https://github.com/redux-saga/redux-saga/issues/14
+function* authorize(refreshToken) {
+  try {
+    const res = yield call(refresh, refreshToken);
+    yield put({ type: actions.POST_TOKEN_RECEIVED, payload: res });
+    return res;
+  } catch (err) {
+    yield put({ type: actions.POST_TOKEN_FAILURE, payload: { response: err } });
+    return null;
+  }
+}
 
-// function* postLogin(action) {
-//   try {
-//     const res = yield call(login, action);
-//     yield put({ type: actions.POST_LOGIN_SUCCESS, payload: res });
-//   } catch (err) {
-//     yield put({ type: actions.POST_LOGIN_FAILURE, payload: { response: err } });
-//   }
-// }
+function refresh(token) {
+  return api.post({ path: REFRESH_TOKEN_PATH, body: { refresh: token } });
+}
 
-// function login(action) {
-//   return api.post({ path: LOGIN_PATH, body: action.payload });
-// }
+function* authorizeLoop(access, refresh) {
+  while (true) {
+    // TODO: What happens if the refresh token is expired?
+    const { access: newAccessToken } = yield call(authorize, refresh);
+    if (!newAccessToken) {
+      return;
+    }
+    const accessDetails = jwtDecode(newAccessToken);
+    const now = DateTime.utc();
+    const expiration = DateTime.fromMillis(accessDetails.exp * 1000).toUTC();
+    const diff = expiration - now;
+    yield call(delay, diff)
+  }
+}
 
-// function* postSignup(action) {
-//   try {
-//     const res = yield call(signup, action);
-//     yield put({ type: actions.POST_SIGNUP_SUCCESS, payload: res });
-//     try {
-//       const loginRes = yield call(login, action);
-//       yield put({ type: actions.POST_LOGIN_SUCCESS, payload: loginRes });
-//     } catch (err) {
-//       yield put({
-//         type: actions.POST_LOGIN_FAILURE,
-//         payload: { response: err }
-//       });
-//     }
-//   } catch (err) {
-//     yield put({
-//       type: actions.POST_SIGNUP_FAILURE,
-//       payload: { response: err }
-//     });
-//   }
-// }
+export default function* authFlowSaga() {
 
-// function signup(action) {
-//   return api.post({ path: SIGNUP_PATH, body: action.payload });
-// }
+  let access;
+  let refresh;
+  const { payload } = yield take("persist/REHYDRATE");
+  if (payload) {
+    const { auth } = payload;
+    if (auth ) {
+      const { access: accessStore, refresh: refreshStore } = auth;
+      if (accessStore && refreshStore) {
+        access = accessStore.token;
+        refresh = refreshStore.token;
+      }
+    }
+  }
 
-// function* postToken(action) {
-//   try {
-//     const res = yield call(refresh, action);
-//     yield put({ type: actions.POST_TOKEN_RECEIVED, payload: res });
-//   } catch (err) {
-//     yield put({ type: actions.POST_TOKEN_FAILURE, payload: { response: err } });
-//   }
-// }
+  while (true) {
+    if (!access && !refresh) {
+      const { login, signup } = yield race({
+        login: take(actions.POST_LOGIN_REQUEST),
+        signup: take(actions.POST_SIGNUP_REQUEST)
+      })
+      if (login) {
+        const res = yield call(postLogin, login);
+        access = res.access;
+        refresh = res.refresh;
+      } else if (signup) {
+        const res = yield call(postSignup, signup);
+        access = res.access;
+        refresh = res.refresh;
+      }
+    }
 
-// function refresh(action) {
-//   return api.post({ path: REFRESH_TOKEN_PATH, body: action.payload });
-// }
+    const { signOutAction } = yield race({
+      signOutAction: take(actions.POST_LOGOUT_REQUEST),
+      authLoop: call(authorizeLoop, access, refresh)
+    }) 
+    
+    if (signOutAction) {
+      // TODO: Handle sign out action
+      yield console.log("i should sign out now");
+    }
+  }
+}
+
+function* postLogin(action) {
+  try {
+    const res = yield call(login, action);
+    yield put({ type: actions.POST_LOGIN_SUCCESS, payload: res });
+    return res;
+  } catch (err) {
+    yield put({ type: actions.POST_LOGIN_FAILURE, payload: { response: err } });
+    return err;
+  }
+}
+
+function login(action) {
+  return api.post({ path: LOGIN_PATH, body: action.payload });
+}
+
+function* postSignup(action) {
+  try {
+    const res = yield call(signup, action);
+    yield put({ type: actions.POST_SIGNUP_SUCCESS, payload: res });
+    try {
+      const loginRes = yield call(login, action);
+      yield put({ type: actions.POST_LOGIN_SUCCESS, payload: loginRes });
+      return loginRes;
+    } catch (err) {
+      yield put({
+        type: actions.POST_LOGIN_FAILURE,
+        payload: { response: err }
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: actions.POST_SIGNUP_FAILURE,
+      payload: { response: err }
+    });
+  }
+}
+
+function signup(action) {
+  return api.post({ path: SIGNUP_PATH, body: action.payload });
+}
