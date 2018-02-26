@@ -4,6 +4,7 @@ import { Link, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import Email from "../containers/Email";
+import PrivateRoute from "../containers/PrivateRoute";
 
 import "./App.css";
 
@@ -43,7 +44,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/emails" component={Email} />
+          <PrivateRoute exact path="/emails" component={Email} />
         </Switch>
         <footer className="footer">
           <div className="container">

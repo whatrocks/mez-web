@@ -14,7 +14,6 @@ import createSagaMiddleware from "redux-saga";
 import "./index.css";
 import "bulma/css/bulma.css";
 import App from "./containers/App";
-import PrivateRoute from "./containers/PrivateRoute";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import registerServiceWorker from "./registerServiceWorker";
@@ -61,7 +60,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
-        <PrivateRoute path="/" component={AppWithRouter}/>
+        <Route path="/" component={AppWithRouter}/>
       </Switch>
     </ConnectedRouter>
   </Provider>,
