@@ -79,10 +79,7 @@ class MezEvent extends Component {
               <div>{event.title}</div>
               <div>{event.occurrences.repeat}</div>
               <div>
-                {DateTime.fromISO(event.occurrences.start).toLocaleString()}
-              </div>
-              <div>
-                {DateTime.fromISO(event.occurrences.end).toLocaleString()}
+                {DateTime.fromISO(event.occurrences[0].start).toLocaleString(DateTime.DATETIME_FULL)}
               </div>
             </div>
           );
