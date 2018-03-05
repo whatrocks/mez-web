@@ -4,6 +4,7 @@ import { Link, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import Email from "../containers/Email";
+import MezEvent from "../containers/MezEvent";
 import PrivateRoute from "../containers/PrivateRoute";
 
 import "./App.css";
@@ -34,6 +35,9 @@ class App extends Component {
                 <Link className="navbar-item" to="/emails">
                   Emails
                 </Link>
+                <Link className="navbar-item" to="/events">
+                  Events
+                </Link>
                 <Link className="navbar-item" onClick={handleLogout} to="/">
                   Sign Out
                 </Link>
@@ -45,6 +49,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
           <PrivateRoute exact path="/emails" component={Email} />
+          <PrivateRoute exact path="/events" component={MezEvent} />
         </Switch>
         <footer className="footer">
           <div className="container">

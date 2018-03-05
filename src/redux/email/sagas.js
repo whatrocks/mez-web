@@ -37,25 +37,3 @@ function* postEmail(action) {
 function submitEmail(action) {
   return api.post({ path: path, body: action.payload })
 }
-
-
-// export function postEmail(token, details) {
-//   return dispatch => {
-//     const json = JSON.stringify(details);
-//     fetch(`http://127.0.0.1:7777/api/v1/emails/`, {
-//       method: "POST",
-//       // headers: withAuth({
-//       //   "Content-Type": "application/json"
-//       // }),
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//         "Content-Type": "application/json"
-//       },
-//       body: json
-//     })
-//       .then(res => console.log("res: ", res))
-//       .catch(err => console.error("err: ", err));
-//   };
-// }
-
-

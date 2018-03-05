@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 import { DateTime } from "luxon";
 
 import * as api from "../../utils/api";
+import { isRefreshTokenExpired } from "./selectors";
 
 const LOGIN_PATH = "/auth/token/obtain/";
 const REFRESH_TOKEN_PATH = "/auth/token/refresh/";
@@ -28,7 +29,6 @@ function refresh(token) {
 
 function* authorizeLoop(access, refresh) {
   while (true) {
-    // TODO: What happens if the refresh token is expired?
     const { access: newAccessToken } = yield call(authorize, refresh);
     if (!newAccessToken) {
       return;
@@ -42,7 +42,6 @@ function* authorizeLoop(access, refresh) {
 }
 
 export default function* authFlowSaga() {
-
   let access;
   let refresh;
   const { payload } = yield take("persist/REHYDRATE");
@@ -73,6 +72,8 @@ export default function* authFlowSaga() {
         refresh = res.refresh;
       }
     }
+
+    console.log("refresh: ", refresh);
 
     const { signOutAction } = yield race({
       signOutAction: take(actions.POST_LOGOUT_REQUEST),

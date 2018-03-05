@@ -3,9 +3,11 @@ import { routerReducer } from "react-router-redux";
 
 import auth from "./auth/reducer";
 import email from "./email/reducer";
+import event from "./event/reducer";
 
 export default combineReducers({
   auth: auth,
   email: email,
+  event: event,
   router: routerReducer
 });
