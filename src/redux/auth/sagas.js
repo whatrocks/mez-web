@@ -5,7 +5,6 @@ import jwtDecode from "jwt-decode";
 import { DateTime } from "luxon";
 
 import * as api from "../../utils/api";
-import { isRefreshTokenExpired } from "./selectors";
 
 const LOGIN_PATH = "/auth/token/obtain/";
 const REFRESH_TOKEN_PATH = "/auth/token/refresh/";
@@ -72,8 +71,6 @@ export default function* authFlowSaga() {
         refresh = res.refresh;
       }
     }
-
-    console.log("refresh: ", refresh);
 
     const { signOutAction } = yield race({
       signOutAction: take(actions.POST_LOGOUT_REQUEST),

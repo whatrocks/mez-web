@@ -12,17 +12,17 @@ export const POST_TOKEN_FAILURE = "auth.getToken.failure";
 
 export const POST_LOGOUT_REQUEST = "auth.logout.request";
 
-export const signup = (username, password) => {
+export const signup = ({ email, password }) => {
   return {
     type: POST_SIGNUP_REQUEST,
-    payload: { username, password }
+    payload: { username: email, email, password }
   }
 }
 
-export const login = (username, password) => {
+export const login = ({ email, password }) => {
   return {
     type: POST_LOGIN_REQUEST,
-    payload: { username, password }
+    payload: { username: email, email, password }
   }
 }
 

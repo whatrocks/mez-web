@@ -23,8 +23,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (username, password) => {
-    dispatch(signup(username, password))
+  onSubmit: (email, password) => {
+    dispatch(signup({ email, password }))
   }
 })
 

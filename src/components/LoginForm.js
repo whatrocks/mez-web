@@ -5,7 +5,7 @@ import TextInput from "./TextInput";
 
 export default class LoginForm extends Component {
   state = {
-    username: "",
+    email: "",
     password: ""
   };
 
@@ -17,7 +17,7 @@ export default class LoginForm extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit(this.state.username, this.state.password);
+    this.props.onSubmit(this.state.email, this.state.password);
   };
 
   render() {
@@ -42,9 +42,9 @@ export default class LoginForm extends Component {
                         ""
                       )}
                       <TextInput
-                        name="username"
-                        label="Username"
-                        error={errors.username}
+                        name="email"
+                        label="Email address"
+                        error={errors.email}
                         onChange={this.handleInputChange}
                       />
                       <TextInput
