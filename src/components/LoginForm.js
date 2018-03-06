@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import TextInput from "./TextInput";
 
@@ -55,9 +56,8 @@ export default class LoginForm extends Component {
                       />
                       <button className="button is-primary" type="submit">Log In</button>
                     </form>
-                    <p>By continuing, you agree to Mezcal's Terms of Service</p>
                     <p>Forgot password?</p>
-                    <p>Don't have an account? Sign up.</p>
+                    <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
                   </div>
                 </div>
                 <div className="column" />
