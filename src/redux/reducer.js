@@ -2,14 +2,14 @@ import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
 
 import auth from "./auth/reducer";
-import contact from "./contact/reducer";
-import email from "./email/reducer";
-import event from "./event/reducer";
+import contactList from "./contactList/reducer";
+import emailList from "./emailList/reducer";
+import eventList from "./eventList/reducer";
 
 export default combineReducers({
-  auth: auth,
-  contact: contact,
-  email: email,
-  event: event,
+  auth,
+  contactList,
+  emailList,
+  eventList,
   router: routerReducer
 });
