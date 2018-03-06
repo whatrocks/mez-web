@@ -69,7 +69,7 @@ class MezEvent extends Component {
         </div>
 
         <button className="button is-primary" onClick={() => this.submitForm()}>
-          Schedule Event
+          Create New Event
         </button>
 
         <hr />

@@ -125,7 +125,7 @@ class Contact extends Component {
         </div>
 
         <button className="button is-primary" onClick={() => this.submitForm()}>
-          Schedule Email
+          Add Contact
         </button>
         <hr />
         {contacts.map((contact, index) => {
