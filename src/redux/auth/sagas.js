@@ -1,10 +1,10 @@
-import * as actions from "./actions";
 import { delay } from "redux-saga";
 import { take, race, call, put } from "redux-saga/effects";
 import jwtDecode from "jwt-decode";
 import { DateTime } from "luxon";
 
 import * as api from "../../utils/api";
+import * as actions from "./actions";
 
 const LOGIN_PATH = "/auth/token/obtain/";
 const REFRESH_TOKEN_PATH = "/auth/token/refresh/";
@@ -30,6 +30,7 @@ function* authorizeLoop(access, refresh) {
   while (true) {
     const { access: newAccessToken } = yield call(authorize, refresh);
     if (!newAccessToken) {
+      yield call(actions.logout())
       return;
     }
     const accessDetails = jwtDecode(newAccessToken);
