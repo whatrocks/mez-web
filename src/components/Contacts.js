@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-class Contact extends Component {
+class Contacts extends Component {
 
   state = {
     form: {
@@ -129,11 +130,9 @@ class Contact extends Component {
         <hr />
         {contacts.map((contact, index) => {
           return  (
-            <div key={index} className={"box"}>
-              <div>{contact.first_name}</div>
-              <div>{contact.last_name}</div>
-              <div>{contact.dt_birthday}</div>
-            </div>
+            <Link to={`contacts/${contact.id}`} key={index} className={"box"}>
+              <div>{contact.first_name} {contact.last_name}</div>
+            </Link>
           );
         })}
       </div>
@@ -141,4 +140,4 @@ class Contact extends Component {
   }
 }
 
-export default Contact;
+export default Contacts;

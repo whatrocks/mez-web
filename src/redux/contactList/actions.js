@@ -1,10 +1,10 @@
-export const GET_CONTACTS_REQUEST = 'contact.getContacts.request';
-export const GET_CONTACTS_SUCCESS = 'contact.getContacts.success';
-export const GET_CONTACTS_FAILURE = 'contact.getContacts.failure';
+export const GET_CONTACTS_REQUEST = 'contactList.getContacts.request';
+export const GET_CONTACTS_SUCCESS = 'contactList.getContacts.success';
+export const GET_CONTACTS_FAILURE = 'contactList.getContacts.failure';
 
-export const POST_CONTACT_REQUEST = 'contact.postContact.request';
-export const POST_CONTACT_SUCCESS = 'contact.postContact.success';
-export const POST_CONTACT_FAILURE = 'contact.postContact.failure';
+export const POST_CONTACT_REQUEST = 'contactList.postContact.request';
+export const POST_CONTACT_SUCCESS = 'contactList.postContact.success';
+export const POST_CONTACT_FAILURE = 'contactList.postContact.failure';
 
 export function requestContacts() {
   return {

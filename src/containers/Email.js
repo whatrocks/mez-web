@@ -1,14 +1,12 @@
 import { connect } from "react-redux";
 import Email from "../components/Email";
-import { accessToken } from "../redux/auth/selectors";
 import { getEmails } from "../redux/emailList/selectors";
 import * as actions from "../redux/emailList/actions";
 
 
 function mapStateToProps(state) {
   return {
-    emails: getEmails(state),
-    accessToken: accessToken(state)
+    emails: getEmails(state)
   };
 }
 
