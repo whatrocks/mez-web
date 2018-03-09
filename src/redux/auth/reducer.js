@@ -34,6 +34,7 @@ export default (state = {}, action) => {
       return {
         access: undefined,
         refresh: undefined,
+        errors: {}
       }
     default:
       return state;

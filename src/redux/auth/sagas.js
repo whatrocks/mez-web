@@ -30,7 +30,7 @@ function* authorizeLoop(access, refresh) {
   while (true) {
     const { access: newAccessToken } = yield call(authorize, refresh);
     if (!newAccessToken) {
-      yield call(actions.logout())
+      yield put({ type: "persist/PURGE" });
       return;
     }
     const accessDetails = jwtDecode(newAccessToken);
@@ -78,9 +78,10 @@ export default function* authFlowSaga() {
       authLoop: call(authorizeLoop, access, refresh)
     }) 
     
+    // TODO: This never gets fired. We need to actually purge the store
     if (signOutAction) {
-      // TODO: Handle sign out action
-      yield console.log("i should sign out now");
+      console.log("I want to log out");
+      yield put({ type: "persist/PURGE" }); 
     }
   }
 }
