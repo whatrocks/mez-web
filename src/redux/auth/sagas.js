@@ -59,7 +59,6 @@ export default function* authFlowSaga() {
 
   while (true) {
     if (!access && !refresh) {
-      console.log("nothing, gotta auth")
       const { login, signup } = yield race({
         login: take(actions.POST_LOGIN_REQUEST),
         signup: take(actions.POST_SIGNUP_REQUEST)
