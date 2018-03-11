@@ -6,6 +6,7 @@ import About from "./About";
 import Contacts from "../containers/Contacts";
 import Contact from "../containers/Contact";
 import Email from "../containers/Email";
+import Footer from "./Footer";
 import MezEvent from "../containers/MezEvent";
 import PrivateRoute from "../containers/PrivateRoute";
 
@@ -50,24 +51,16 @@ class App extends Component {
           </div>
         </nav>
         <div className="main">
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/about" component={About} />
-          <PrivateRoute exact path="/contacts" component={Contacts} />
-          <PrivateRoute path="/contacts/:id" component={Contact} />
-          <PrivateRoute exact path="/emails" component={Email} />
-          <PrivateRoute exact path="/events" component={MezEvent} />
-        </Switch>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            <PrivateRoute exact path="/contacts" component={Contacts} />
+            <PrivateRoute path="/contacts/:id" component={Contact} />
+            <PrivateRoute exact path="/emails" component={Email} />
+            <PrivateRoute exact path="/events" component={MezEvent} />
+          </Switch>
         </div>
-        <footer className="footer">
-          <div className="container">
-            <div className="content has-text-centered">
-              <p>
-                This is my awesome footer
-              </p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     );
   }
