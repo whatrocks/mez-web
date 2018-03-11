@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     const { handleLogout } = this.props;
     return (
-      <div>
+      <div className="site">
         <nav className="navbar">
           <div className="container">
             <div className="navbar-brand">
@@ -49,6 +49,7 @@ class App extends Component {
             </div>
           </div>
         </nav>
+        <div className="main">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
@@ -57,6 +58,7 @@ class App extends Component {
           <PrivateRoute exact path="/emails" component={Email} />
           <PrivateRoute exact path="/events" component={MezEvent} />
         </Switch>
+        </div>
         <footer className="footer">
           <div className="container">
             <div className="content has-text-centered">
