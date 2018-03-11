@@ -1,10 +1,14 @@
 import { delay } from "redux-saga";
-import { take, race, call, put } from "redux-saga/effects";
+import { take, race, call, put, fork, cancel } from "redux-saga/effects";
 import jwtDecode from "jwt-decode";
 import { DateTime } from "luxon";
+import { purgeStoredState } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 import * as api from "../../utils/api";
 import * as actions from "./actions";
+
+import { persistConfig } from "../../index"; 
 
 const LOGIN_PATH = "/auth/token/obtain/";
 const REFRESH_TOKEN_PATH = "/auth/token/refresh/";
@@ -72,16 +76,13 @@ export default function* authFlowSaga() {
         refresh = res.refresh;
       }
     }
-
-    const { signOutAction } = yield race({
-      signOutAction: take(actions.POST_LOGOUT_REQUEST),
-      authLoop: call(authorizeLoop, access, refresh)
-    }) 
-    
-    // TODO: This never gets fired. We need to actually purge the store
-    if (signOutAction) {
-      console.log("I want to log out");
-      yield put({ type: "persist/PURGE" }); 
+    const task = yield fork(authorizeLoop, access, refresh);
+    const logout = yield take(actions.POST_LOGOUT_REQUEST);
+    if (logout) {
+      yield cancel(task);
+      storage.removeItem('persist:mez');
+      access = undefined;
+      refresh = undefined;
     }
   }
 }

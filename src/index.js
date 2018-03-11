@@ -7,7 +7,8 @@ import createBrowserHistory from "history/createBrowserHistory";
 import { ConnectedRouter, routerMiddleware } from "react-router-redux";
 import { createFilter } from "redux-persist-transform-filter";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/es/storage";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/storage";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 
@@ -25,13 +26,15 @@ const history = createBrowserHistory();
 const persistedFilter = createFilter(
   'auth', ['access', 'refresh']);
 
+export const persistConfig =   {
+  key: "mez",
+  storage: storage,
+  whitelist: ['auth'],
+  transforms: [persistedFilter]
+};
+
 const persistedReducer = persistReducer(
-  {
-    key: "mez",
-    storage: storage,
-    whitelist: ['auth'],
-    transforms: [persistedFilter]
-  },
+  persistConfig,
   reducer
 )
 
@@ -52,17 +55,19 @@ export const store = createStore(
   )
 );
 sagaMiddleware.run(rootSaga);
-persistStore(store)
+export const persistor = persistStore(store)
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route path="/" component={AppWithRouter}/>
-      </Switch>
-    </ConnectedRouter>
+    <PersistGate loading={null} persistor={persistor}>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route path="/" component={AppWithRouter}/>
+        </Switch>
+      </ConnectedRouter>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
