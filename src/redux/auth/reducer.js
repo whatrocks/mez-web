@@ -25,10 +25,11 @@ export default (state = {}, action) => {
       };
     case actions.POST_LOGIN_FAILURE:
     case actions.POST_TOKEN_FAILURE:
+    case actions.POST_SIGNUP_FAILURE:
       return {
         access: undefined,
         refresh: undefined,
-        errors: action.payload.response.message
+        errors: action.payload.response.data
       };
     case actions.POST_LOGOUT_REQUEST:
       return {

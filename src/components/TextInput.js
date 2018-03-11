@@ -12,6 +12,7 @@ export default ({
   return (
     <div className="field">
       <label className="label">{label}</label>
+      { error ? <label className="label has-text-danger">{error}</label> : <span /> }
       <div className="control">
         <input
           className="input"

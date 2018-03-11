@@ -5,7 +5,7 @@ export const get = ({ path }) => {
     .get(path)
     .then(res => res.data)
     .catch(err => {
-      throw err;
+      return Promise.reject(err.resopnse);
     });
 };
 
@@ -13,6 +13,10 @@ export const post = ({ path, body }) => {
   const json = JSON.stringify(body);
   return axiosClient
     .post(path, json)
-    .then(res => res.data)
-    .catch(err => err);
+    .then(res => {
+      return res.data
+    })
+    .catch(err => {
+      return Promise.reject(err.response);
+    });
 };

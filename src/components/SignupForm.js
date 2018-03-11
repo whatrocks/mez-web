@@ -21,7 +21,8 @@ export default class LoginForm extends Component {
   }
 
   render() {
-    const errors = this.props.errors || {};
+    const errors = this.props.errors;
+    const { username: emailError, password: passwordError } = errors;
     return (
       <div>
       <section className="hero">
@@ -45,13 +46,13 @@ export default class LoginForm extends Component {
                       name="email"
                       label="Email address"
                       type="email"
-                      error={errors.email}
+                      error={emailError}
                       onChange={this.handleInputChange}
                     />
                     <TextInput
                       name="password"
                       label="Password"
-                      error={errors.password}
+                      error={passwordError}
                       type="password"
                       onChange={this.handleInputChange}
                     />

@@ -1,7 +1,8 @@
 import { delay } from "redux-saga";
-import { take, race, call, put } from "redux-saga/effects";
+import { take, race, call, put, fork, cancel } from "redux-saga/effects";
 import jwtDecode from "jwt-decode";
 import { DateTime } from "luxon";
+import storage from "redux-persist/lib/storage";
 
 import * as api from "../../utils/api";
 import * as actions from "./actions";
@@ -30,7 +31,7 @@ function* authorizeLoop(access, refresh) {
   while (true) {
     const { access: newAccessToken } = yield call(authorize, refresh);
     if (!newAccessToken) {
-      yield put({ type: "persist/PURGE" });
+      storage.removeItem('persist:mez');
       return;
     }
     const accessDetails = jwtDecode(newAccessToken);
@@ -73,15 +74,18 @@ export default function* authFlowSaga() {
       }
     }
 
-    const { signOutAction } = yield race({
-      signOutAction: take(actions.POST_LOGOUT_REQUEST),
-      authLoop: call(authorizeLoop, access, refresh)
-    }) 
-    
-    // TODO: This never gets fired. We need to actually purge the store
-    if (signOutAction) {
-      console.log("I want to log out");
-      yield put({ type: "persist/PURGE" }); 
+    // If there's a signin/login error
+    if (!access && !refresh) {
+      continue;
+    }
+
+    const task = yield fork(authorizeLoop, access, refresh);
+    const logout = yield take(actions.POST_LOGOUT_REQUEST);
+    if (logout) {
+      yield cancel(task);
+      storage.removeItem('persist:mez');
+      access = undefined;
+      refresh = undefined;
     }
   }
 }
@@ -97,8 +101,8 @@ function* postLogin(action) {
   }
 }
 
-function login(action) {
-  return api.post({ path: LOGIN_PATH, body: action.payload });
+async function login(action) {
+  return await api.post({ path: LOGIN_PATH, body: action.payload });
 }
 
 function* postSignup(action) {
@@ -114,15 +118,17 @@ function* postSignup(action) {
         type: actions.POST_LOGIN_FAILURE,
         payload: { response: err }
       });
+      return err;
     }
   } catch (err) {
     yield put({
       type: actions.POST_SIGNUP_FAILURE,
       payload: { response: err }
     });
+    return err;
   }
 }
 
-function signup(action) {
-  return api.post({ path: SIGNUP_PATH, body: action.payload });
+async function signup(action) {
+  return await api.post({ path: SIGNUP_PATH, body: action.payload });
 }
