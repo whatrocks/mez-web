@@ -28,7 +28,7 @@ export default (state = {}, action) => {
       return {
         access: undefined,
         refresh: undefined,
-        errors: action.payload.response.message
+        errors: action.payload.response.data
       };
     case actions.POST_LOGOUT_REQUEST:
       return {

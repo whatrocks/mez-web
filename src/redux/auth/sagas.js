@@ -2,13 +2,10 @@ import { delay } from "redux-saga";
 import { take, race, call, put, fork, cancel } from "redux-saga/effects";
 import jwtDecode from "jwt-decode";
 import { DateTime } from "luxon";
-import { purgeStoredState } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import * as api from "../../utils/api";
 import * as actions from "./actions";
-
-import { persistConfig } from "../../index"; 
 
 const LOGIN_PATH = "/auth/token/obtain/";
 const REFRESH_TOKEN_PATH = "/auth/token/refresh/";
@@ -34,7 +31,7 @@ function* authorizeLoop(access, refresh) {
   while (true) {
     const { access: newAccessToken } = yield call(authorize, refresh);
     if (!newAccessToken) {
-      yield put({ type: "persist/PURGE" });
+      storage.removeItem('persist:mez');
       return;
     }
     const accessDetails = jwtDecode(newAccessToken);
@@ -62,6 +59,7 @@ export default function* authFlowSaga() {
 
   while (true) {
     if (!access && !refresh) {
+      console.log("nothing, gotta auth")
       const { login, signup } = yield race({
         login: take(actions.POST_LOGIN_REQUEST),
         signup: take(actions.POST_SIGNUP_REQUEST)
@@ -71,11 +69,18 @@ export default function* authFlowSaga() {
         access = res.access;
         refresh = res.refresh;
       } else if (signup) {
+        console.log("signup");
         const res = yield call(postSignup, signup);
         access = res.access;
         refresh = res.refresh;
       }
     }
+
+    // If there's a signin/login error
+    if (!access && !refresh) {
+      continue;
+    }
+
     const task = yield fork(authorizeLoop, access, refresh);
     const logout = yield take(actions.POST_LOGOUT_REQUEST);
     if (logout) {
@@ -98,8 +103,8 @@ function* postLogin(action) {
   }
 }
 
-function login(action) {
-  return api.post({ path: LOGIN_PATH, body: action.payload });
+async function login(action) {
+  return await api.post({ path: LOGIN_PATH, body: action.payload });
 }
 
 function* postSignup(action) {
@@ -124,6 +129,6 @@ function* postSignup(action) {
   }
 }
 
-function signup(action) {
-  return api.post({ path: SIGNUP_PATH, body: action.payload });
+async function signup(action) {
+  return await api.post({ path: SIGNUP_PATH, body: action.payload });
 }

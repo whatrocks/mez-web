@@ -39,5 +39,5 @@ export function isAuthenticated(state) {
 }
 
 export function authErrors(state) {
-  return _.get(state, 'auth.errors');
+  return _.get(state, 'auth.errors', {});
 }
