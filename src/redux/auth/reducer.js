@@ -25,6 +25,7 @@ export default (state = {}, action) => {
       };
     case actions.POST_LOGIN_FAILURE:
     case actions.POST_TOKEN_FAILURE:
+    case actions.POST_SIGNUP_FAILURE:
       return {
         access: undefined,
         refresh: undefined,

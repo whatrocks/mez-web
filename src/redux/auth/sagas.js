@@ -69,7 +69,6 @@ export default function* authFlowSaga() {
         access = res.access;
         refresh = res.refresh;
       } else if (signup) {
-        console.log("signup");
         const res = yield call(postSignup, signup);
         access = res.access;
         refresh = res.refresh;
@@ -120,12 +119,14 @@ function* postSignup(action) {
         type: actions.POST_LOGIN_FAILURE,
         payload: { response: err }
       });
+      return err;
     }
   } catch (err) {
     yield put({
       type: actions.POST_SIGNUP_FAILURE,
       payload: { response: err }
     });
+    return err;
   }
 }
 
