@@ -16,6 +16,10 @@ export function refreshTokenExp(state) {
   return _.get(state, 'auth.refresh.exp');
 }
 
+export function getUserId(state) {
+  return _.get(state, 'auth.userId');
+}
+
 export function isAccessTokenExpired(state) {
   const token = accessToken(state);
   const exp = accessTokenExp(state);

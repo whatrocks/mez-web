@@ -28,7 +28,7 @@ class MezEvent extends Component {
   }
 
   submitForm() {
-    const { onSubmitEvent } = this.props;
+    const { onSubmitEvent, userId } = this.props;
     const { form } = this.state;
     const dt = DateTime.local();
     const dt_string = dt.toISO();
@@ -41,7 +41,7 @@ class MezEvent extends Component {
         repeat: form.repeat
       },
       title: form.title,
-      owner: 1
+      owner: userId
     };
     onSubmitEvent(details);
   }

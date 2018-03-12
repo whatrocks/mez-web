@@ -2,10 +2,12 @@ import { connect } from "react-redux";
 import MezEvent from "../components/MezEvent";
 import { getEvents } from "../redux/eventList/selectors";
 import * as actions from "../redux/eventList/actions";
+import { getUserId } from "../redux/auth/selectors";
 
 function mapStateToProps(state) {
   return {
-    events: getEvents(state)
+    events: getEvents(state),
+    userId: getUserId(state)
   };
 }
 
