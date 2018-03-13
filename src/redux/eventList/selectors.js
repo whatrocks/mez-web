@@ -5,5 +5,5 @@ export function getEvents(state) {
 };
 
 export function getIsFetchingEvents(state) {
-  return _.get(state, 'eventList.isFetchingEvents', false);
+  return _.get(state, 'eventList.isFetching', false);
 }

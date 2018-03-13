@@ -5,5 +5,5 @@ export function getEmails(state) {
 };
 
 export function getIsFetchingEmails(state) {
-  return _.get(state, 'emailList.isFetchingEmails', false);
+  return _.get(state, 'emailList.isFetching', false);
 }

@@ -5,5 +5,5 @@ export function getContacts(state) {
 };
 
 export function getIsFetchingContacts(state) {
-  return _.get(state, 'contactList.isFetchingContacts', false);
+  return _.get(state, 'contactList.isFetching', false);
 }

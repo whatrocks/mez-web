@@ -1,22 +1,22 @@
 import { connect } from "react-redux";
 import MezEvent from "../components/MezEvent";
-import { getEvents } from "../redux/eventList/selectors";
-import * as actions from "../redux/eventList/actions";
+import { getEvent } from "../redux/eventDetail/selectors";
+import * as actions from "../redux/eventDetail/actions";
 import { getUserId } from "../redux/auth/selectors";
 
 function mapStateToProps(state) {
   return {
-    events: getEvents(state),
+    event: getEvent(state),
     userId: getUserId(state)
   };
 }
 
 const mapDispatchToProps = dispatch => ({
-  requestEvents: () => {
-    dispatch(actions.requestEvents())
+  requestEvent: ({ id }) => {
+    dispatch(actions.requestEvent({ id }))
   },
-  onSubmitEvent: (details) => {
-    dispatch(actions.postEvent(details))
+  onUpdateEvent: ({ id, details }) => {
+    dispatch(actions.putEvent({ id, details }))
   }
 });
 

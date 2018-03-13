@@ -4,6 +4,7 @@ import authSagas from "./auth/sagas";
 import contactListSagas from "./contactList/sagas";
 import contactDetailSagas from "./contactDetail/sagas";
 import emailListSagas from "./emailList/sagas";
+import eventDetailSagas from "./eventDetail/sagas";
 import eventListSagas from "./eventList/sagas";
 
 const sagas = [
@@ -11,6 +12,7 @@ const sagas = [
   contactListSagas,
   contactDetailSagas,
   emailListSagas,
+  eventDetailSagas,
   eventListSagas,
 ];
 

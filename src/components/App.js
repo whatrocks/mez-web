@@ -7,6 +7,7 @@ import Contacts from "../containers/Contacts";
 import Contact from "../containers/Contact";
 import Email from "../containers/Email";
 import Footer from "./Footer";
+import MezEvents from "../containers/MezEvents";
 import MezEvent from "../containers/MezEvent";
 import PrivateRoute from "../containers/PrivateRoute";
 
@@ -57,7 +58,8 @@ class App extends Component {
             <PrivateRoute exact path="/contacts" component={Contacts} />
             <PrivateRoute path="/contacts/:id" component={Contact} />
             <PrivateRoute exact path="/emails" component={Email} />
-            <PrivateRoute exact path="/events" component={MezEvent} />
+            <PrivateRoute exact path="/events" component={MezEvents} />
+            <PrivateRoute path="/events/:id" component={MezEvent} />
           </Switch>
         </div>
         <Footer />
