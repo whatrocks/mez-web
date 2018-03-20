@@ -18,7 +18,7 @@ $primary-invert: $pink-invert;
 // Use the existing orange as the danger color
 $danger: $orange;
 // Use the new serif family
-$family-primary: $family-serif;
+// $family-primary: $family-serif;
 
 // 4. Setup your Custom Colors
 $linkedin: #0077b5;
@@ -44,4 +44,23 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+.logo {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  margin-bottom: 2rem;
 }
