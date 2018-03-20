@@ -26,7 +26,7 @@ class App extends Component {
                   <figure className="image is-48x48 level-item">
                     <img alt="logo" src="img/mez.png" />
                   </figure>
-                  <h1 className="level-item title logo">mezcal</h1>
+                  <h1 className="level-item title logo">Mezcal</h1>
                 </div>
               </Link>
             </div>
