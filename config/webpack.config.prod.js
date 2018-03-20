@@ -201,13 +201,6 @@ module.exports = {
                         sourceMap: shouldUseSourceMap,
                       },
                     },
-                    'resolve-url-loader',
-                    {
-                      loader: 'sass-loader',
-                      options: {
-                        sourceMap: true,
-                      }
-                    },
                     {
                       loader: require.resolve('postcss-loader'),
                       options: {
@@ -227,6 +220,13 @@ module.exports = {
                           }),
                         ],
                       },
+                    },
+                    'resolve-url-loader',
+                    {
+                      loader: 'sass-loader',
+                      options: {
+                        sourceMap: true,
+                      }
                     },
                   ],
                 },
