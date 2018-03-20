@@ -12,8 +12,6 @@ import storage from "redux-persist/lib/storage";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 
-import "./index.css";
-import "bulma/css/bulma.css";
 import App from "./containers/App";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";

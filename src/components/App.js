@@ -11,7 +11,8 @@ import MezEvents from "../containers/MezEvents";
 import MezEvent from "../containers/MezEvent";
 import PrivateRoute from "../containers/PrivateRoute";
 
-import "./App.css";
+import '../styles/global.scss';
+// import "./App.css";
 
 class App extends Component {
   render() {
