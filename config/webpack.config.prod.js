@@ -18,7 +18,7 @@ const getClientEnvironment = require('./env');
 const publicPath = paths.servedPath;
 // Some apps do not use client-side routing with pushState.
 // For these, "homepage" can be set to "." to enable relative asset paths.
-const shouldUseRelativeAssetPaths = publicPath === './';
+// const shouldUseRelativeAssetPaths = publicPath === './';
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
@@ -41,10 +41,10 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
 // However, our output is structured with css, js and media folders.
 // To have this structure working with relative paths, we have to use custom options.
-const extractTextPluginOptions = shouldUseRelativeAssetPaths
-  ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split('/').length).join('../') }
-  : {};
+// const extractTextPluginOptions = shouldUseRelativeAssetPaths
+//   ? // Making sure that the publicPath goes back to to build folder.
+//     { publicPath: Array(cssFilename.split('/').length).join('../') }
+//   : {};
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -149,20 +149,27 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
               compact: true,
             },
           },
           {
-            test: /styles\/global\/scss$/,
+            test: /global\/.(scss|sass)$/,
             use: ExtractTextPlugin.extract({
               use: [
-                'css-loader',
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    modules: true,
+                    localIdentName: '[hash:base64:5]',
+                    sourceMap: shouldUseSourceMap,
+                  },
+                },
                 'resolve-url-loader',
                 {
                   loader: 'sass-loader',
                   options: {
-                    sourceMap: true
+                    sourceMap: true,
+                    includePaths: ["node_modules"]
                   }
                 }
               ]
@@ -181,47 +188,38 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
-            test: /\.(scss|css)$/,
-            loader: ExtractTextPlugin.extract(
-              Object.assign(
-                {
-                  fallback: {
-                    loader: require.resolve('style-loader'),
-                    options: {
-                      hmr: false,
-                    },
-                  },
+            test: /\.(scss|css|sass)$/,
+            loader: ExtractTextPlugin.extract({
                   use: [
                     {
                       loader: require.resolve('css-loader'),
                       options: {
                         modules: true,
-                        minimize: true,
                         localIdentName: '[hash:base64:5]',
                         sourceMap: shouldUseSourceMap,
                       },
                     },
-                    {
-                      loader: require.resolve('postcss-loader'),
-                      options: {
-                        // Necessary for external CSS imports to work
-                        // https://github.com/facebookincubator/create-react-app/issues/2677
-                        ident: 'postcss',
-                        plugins: () => [
-                          require('postcss-flexbugs-fixes'),
-                          autoprefixer({
-                            browsers: [
-                              '>1%',
-                              'last 4 versions',
-                              'Firefox ESR',
-                              'not ie < 9', // React doesn't support IE8 anyway
-                            ],
-                            flexbox: 'no-2009',
-                          }),
-                        ],
-                      },
-                    },
                     'resolve-url-loader',
+                    // {
+                    //   loader: require.resolve('postcss-loader'),
+                    //   options: {
+                    //     // Necessary for external CSS imports to work
+                    //     // https://github.com/facebookincubator/create-react-app/issues/2677
+                    //     ident: 'postcss',
+                    //     plugins: () => [
+                    //       require('postcss-flexbugs-fixes'),
+                    //       autoprefixer({
+                    //         browsers: [
+                    //           '>1%',
+                    //           'last 4 versions',
+                    //           'Firefox ESR',
+                    //           'not ie < 9', // React doesn't support IE8 anyway
+                    //         ],
+                    //         flexbox: 'no-2009',
+                    //       }),
+                    //     ],
+                    //   },
+                    // },
                     {
                       loader: 'sass-loader',
                       options: {
@@ -230,8 +228,6 @@ module.exports = {
                     },
                   ],
                 },
-                extractTextPluginOptions
-              )
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
