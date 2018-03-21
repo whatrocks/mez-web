@@ -8,9 +8,13 @@ export default () => (
         <div className="container has-text-centered">
           <div className="columns">
             <div className="column is-one-third">
-              <figure className="image is-square">
-                <img alt="logo" src="img/mez.png" />
-              </figure>
+              <div className="blinky">
+                <div className="eyes">
+                  <div className="eye" />
+                  <div className="eye" />
+                </div>
+                  <img  className="mez" alt="logo" src="img/eyeless.png" />
+              </div>
             </div>
             <div className="column">
               <h1 className="title">

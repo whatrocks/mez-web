@@ -16,3 +16,34 @@
   flex: 1;
   margin-bottom: 2rem;
 }
+
+
+.main-bg {
+  background-color: #F3F0EE;
+}
+
+.blinky {
+  position: relative;
+}
+
+.eyes {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  top: 60px;
+  left: 80px;
+}
+
+.eye {
+  border: 20px solid blue; 
+  border-radius: 50%;
+  /* z-index: 2; */
+}
+
+.mez {
+  /* z-index: 1; */
+  width: 400px;
+  max-width: 400px;
+  min-width: 400px;
+  height: 400px;
+}
