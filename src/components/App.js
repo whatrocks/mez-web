@@ -19,15 +19,12 @@ class App extends Component {
     const { handleLogout } = this.props;
     return (
       <div className="site">
-        <nav className="navbar">
+        <nav className="navbar tan-bg">
           <div className="container">
             <div className="navbar-brand">
               <Link to="/">
                 <div className="level-left">
-                  <figure className="image is-48x48 level-item">
-                    <img alt="logo" src="img/mez.png" />
-                  </figure>
-                  <h1 className={`level-item title logo ${style.contact}`}>Mezcal</h1>
+                  <h1 className="level-item title logo">Mezcal</h1>
                 </div>
               </Link>
             </div>

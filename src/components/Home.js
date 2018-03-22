@@ -9,14 +9,14 @@ export default () => (
           <div className="columns">
             <div className="column is-one-third">
               <figure className="image is-square">
-                <img alt="logo" src="img/mez.png" />
+                <img alt="logo" src="img/mez/mez.png" />
               </figure>
             </div>
             <div className="column">
-              <h1 className="title">
-                A new sort of calendar, built for people who forget things.
+              <h1 className="title hero-header">
+                Forget "Sorry, I forgot."
               </h1>
-              <h2 className="subtitle">
+              <h2 className="subtitle hero-header">
                 Schedule emails, text messages, Facebook posts, or Tweets
               </h2>
               <Link to="/signup" className="button is-primary">
