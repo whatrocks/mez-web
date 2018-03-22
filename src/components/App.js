@@ -11,7 +11,8 @@ import MezEvents from "../containers/MezEvents";
 import MezEvent from "../containers/MezEvent";
 import PrivateRoute from "../containers/PrivateRoute";
 
-import "./App.css";
+import '../styles/global.scss';
+import style from "./style.scss";
 
 class App extends Component {
   render() {
@@ -26,7 +27,7 @@ class App extends Component {
                   <figure className="image is-48x48 level-item">
                     <img alt="logo" src="img/mez.png" />
                   </figure>
-                  <h1 className="level-item title logo">mezcal</h1>
+                  <h1 className={`level-item title logo ${style.contact}`}>Mezcal</h1>
                 </div>
               </Link>
             </div>
