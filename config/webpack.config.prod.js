@@ -153,24 +153,16 @@ module.exports = {
             },
           },
           {
-            test: /global\/.(scss|sass)$/,
+            test: /styles\/global\.scss$/,
             use: ExtractTextPlugin.extract({
               use: [
-                {
-                  loader: require.resolve('css-loader'),
-                  options: {
-                    modules: true,
-                    localIdentName: '[hash:base64:5]',
-                    sourceMap: shouldUseSourceMap,
-                  },
-                },
+                'css-loader',
                 'resolve-url-loader',
                 {
                   loader: 'sass-loader',
                   options: {
                     sourceMap: true,
-                    includePaths: ["node_modules"]
-                  }
+                  },
                 }
               ]
             })
