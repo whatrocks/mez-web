@@ -12,9 +12,6 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   requestContacts: () => {
     dispatch(actions.requestContacts())
-  },
-  onSubmitContact: (details) => {
-    dispatch(actions.postContact(details))
   }
 });
 
