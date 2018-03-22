@@ -51,7 +51,6 @@ $colors: map-merge($colors, $addColors);
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   background-color: $tan;
 }
 
@@ -60,7 +59,13 @@ body {
 }
 
 .logo {
-  font-family: 'Quicksand', sans-serif;
+  font-family: $family-logo;
+}
+
+.hero-header {
+  font-family: $family-header;
+  font-size: 4rem;
+  color: $blue;
 }
 
 .site {
