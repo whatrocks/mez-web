@@ -24,7 +24,7 @@ export default class LoginForm extends Component {
     const errors = this.props.errors;
     const { username: emailError, password: passwordError } = errors;
     return (
-      <div>
+      <div className="site">
         <section className="hero">
           <div className="hero-body">
             <div className="container has-text-centered">
