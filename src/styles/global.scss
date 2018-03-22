@@ -26,7 +26,7 @@ $danger: $orange;
 // Use the new serif family
 $family-primary: $family-main;
 // Use new background
-$background: $blue;
+// $background: $blue;
 
 // 4. Setup your Custom Colors
 $linkedin: #0077b5;
@@ -64,7 +64,6 @@ body {
 
 .hero-header {
   font-family: $family-header;
-  font-size: 4rem;
   color: $blue;
 }
 
@@ -77,4 +76,8 @@ body {
 .main {
   flex: 1;
   margin-bottom: 2rem;
+}
+
+.tan-bg {
+  background-color: $tan;
 }

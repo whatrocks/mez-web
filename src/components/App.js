@@ -19,7 +19,7 @@ class App extends Component {
     const { handleLogout } = this.props;
     return (
       <div className="site">
-        <nav className="navbar">
+        <nav className="navbar tan-bg">
           <div className="container">
             <div className="navbar-brand">
               <Link to="/">
