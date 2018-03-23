@@ -36,6 +36,11 @@ $twitter-invert: findColorInvert($twitter);
 $github: #333;
 $github-invert: findColorInvert($github);
 
+//Box
+$box-shadow: none;
+$box-link-hover-shadow: 0 2px 3px rgba($black, 0.1), 0 0 0 1px rgba($black, 0.1);
+$box-link-active-shadow: 0 2px 3px rgba($black, 0.1), 0 0 0 1px rgba($black, 0.1);
+
 // 5. Add new color variables to the color map.
 @import "~bulma/sass/utilities/derived-variables.sass";
 $addColors: (
@@ -60,6 +65,7 @@ body {
 
 .logo {
   font-family: $family-logo;
+  padding-top: 0.3rem;
 }
 
 .hero-header {

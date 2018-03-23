@@ -14,6 +14,8 @@ class MezEvents extends Component {
     return (
       <div className="container">
         <h3 className="title">Events</h3>
+        <Link to="/events/new">New Event</Link>
+        <hr />
         {events.map((event, index) => {
           return (
             <Link to={`events/${event.id}`} key={index} className={"box"}>

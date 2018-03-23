@@ -13,6 +13,8 @@ class Contacts extends Component {
     return (
       <div className="container">
         <h3 className="title">Contacts</h3>
+        <Link to="/contacts/new">New Contact</Link>
+        <hr />
         {contacts.map((contact, index) => {
           return  (
             <Link to={`contacts/${contact.id}`} key={index} className={"box"}>
