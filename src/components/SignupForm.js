@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import TextInput from "./TextInput";
+import TextInput from "./Form/TextInput";
 
 export default class LoginForm extends Component {
   state = {

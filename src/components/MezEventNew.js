@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { DateTime } from "luxon";
 
+import TextInput from "./Form/TextInput";
+import SelectInput from "./Form/SelectInput";
+import { RRULES } from "../utils/events";
+
 class MezEventNew extends Component {
-  
   state = {
     form: {
       title: "",
       start: "",
       end: "",
-      repeat: "RRULE:FREQ=YEARLY"
+      repeat: ""
     }
   };
 
@@ -29,11 +32,12 @@ class MezEventNew extends Component {
     const dt_string = dt.toISO();
     const send_dt = dt.plus({ years: 3 });
     const send_dt_string = send_dt.toISO();
+    const repeatValue = RRULES[form.repeat];
     const details = {
       occurrence: {
         start: dt_string,
         end: send_dt_string,
-        repeat: form.repeat
+        repeat: repeatValue
       },
       title: form.title,
       owner: userId
@@ -42,28 +46,26 @@ class MezEventNew extends Component {
   }
 
   render() {
-    const { form } = this.state;
     return (
       <div className="container">
         <h3 className="title">New Event</h3>
-
-        <div className="field">
-          <label className="label">Title</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              placeholder="Event title"
-              value={form.to}
-              onChange={e => this.editField("title", e.target.value)}
-            />
-          </div>
-        </div>
-
+        <TextInput
+          name="title"
+          label="Title"
+          error=""
+          type="text"
+          onChange={this.editField.bind(this)}
+        />
+        <SelectInput
+          label="Repeat"
+          name="repeat"
+          error=""
+          options={Object.keys(RRULES)}
+          onChange={this.editField.bind(this)}
+        />
         <button className="button is-primary" onClick={() => this.submitForm()}>
           Create New Event
         </button>
-
       </div>
     );
   }
