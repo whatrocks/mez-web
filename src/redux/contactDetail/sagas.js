@@ -11,6 +11,9 @@ export default function* sagas() {
   ]);
 }
 
+// TODD: If there's a successful contact fetch,
+// Then we should fetch the upcoming occurrences for the birthday
+
 function* getContact(action) {
   try {
     const res = yield call(fetchContact, action);

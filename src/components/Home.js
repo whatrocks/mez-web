@@ -1,27 +1,49 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 
-export default () => (
-  <section className="hero is-medium landing-bg">
-    <div className="hero-body">
-      <div className="container has-text-centered">
-        <div className="columns">
-          <div className="column is-one-third">
-            <figure className="image is-square">
-              <img alt="logo" src="img/mez/mez.png" />
-            </figure>
-          </div>
-          <div className="column">
-            <h1 className="title hero-header">Forget "Sorry, I forgot."</h1>
-            <h2 className="subtitle hero-header">
-              Schedule emails, text messages, Facebook posts, or Tweets
-            </h2>
-            <Link to="/signup" className="button is-primary">
-              Sign Up For Free
-            </Link>
+class Home extends PureComponent {
+  
+  state = {
+    hovering: false,
+    mez: "img/mez/mez.png"
+  }
+
+  hoverHandler({ hovering }) {
+    const path = hovering ? "img/mez/mez-wink.png" : "img/mez/mez.png"
+    this.setState({ hovering, mez: path })
+  }
+
+  render() {
+    const { mez } = this.state;
+    return (
+      <section className="hero is-medium landing-bg">
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            <div className="columns">
+              <div className="column is-one-third">
+                <figure
+                  className="image"
+                  onMouseOver={() => this.hoverHandler({ hovering: true })}
+                  onMouseOut={() => this.hoverHandler({ hovering: false })}
+                >
+                  <img alt="logo" src={mez} />
+                </figure>
+              </div>
+              <div className="column">
+                <h1 className="title hero-header">Forget "Sorry, I forgot."</h1>
+                <h2 className="subtitle hero-header">
+                  Schedule emails, text messages, Facebook posts, or Tweets
+                </h2>
+                <Link to="/signup" className="button is-primary">
+                  Sign Up For Free
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-);
+      </section>
+    );
+  }
+}
+
+export default Home;
