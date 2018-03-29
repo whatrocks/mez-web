@@ -8,9 +8,7 @@
 $tan: #F3F0EE;
 // Update blue
 $blue: #0B233A;
-// Add pink and its invert
-$pink: #ffb3b3;
-$pink-invert: #fff;
+$blue-invert: #fff;
 // Fonts
 $family-logo: 'Quicksand', sans-serif;
 $family-header: 'Eczar', serif;
@@ -19,10 +17,11 @@ $family-main: 'Source Sans Pro', sans-serif;
 
 // 3. Set the derived variables
 // Use the new pink as the primary color
-$primary: $pink;
-$primary-invert: $pink-invert;
+$primary: $blue;
+$primary-invert: $blue-invert;
 // Use the existing orange as the danger color
-$danger: $orange;
+// $danger: $orange;
+
 // Use the new serif family
 $family-primary: $family-main;
 // Use new background

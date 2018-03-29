@@ -9,7 +9,7 @@ class Home extends PureComponent {
   }
 
   hoverHandler({ hovering }) {
-    const path = hovering ? "img/mez/mez-wink.png" : "img/mez/mez.png"
+    const path = hovering ? "img/mez/tongue.png" : "img/mez/mez.png"
     this.setState({ hovering, mez: path })
   }
 
