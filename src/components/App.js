@@ -16,8 +16,14 @@ import PrivateRoute from "../containers/PrivateRoute";
 import '../styles/global.scss';
 
 class App extends Component {
+  
+  state = {
+    showNav: false,
+  }
+
   render() {
     const { handleLogout } = this.props;
+    const { showNav } = this.state;
     return (
       <div className="site">
         <nav className="navbar tan-bg">
@@ -28,8 +34,16 @@ class App extends Component {
                   <h1 className="level-item title logo">Mezcal</h1>
                 </div>
               </Link>
+              <div 
+                className={`navbar-burger ${showNav ? 'is-active' : ''}`}
+                onClick={() => this.setState({ showNav: !showNav})}
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </div>
-            <div className="navbar-menu">
+            <div className={`navbar-menu ${showNav ? 'is-active' : ''}`}>
               <div className="navbar-end">
                 <Link className="navbar-item" to="/about">
                   About
