@@ -1,5 +1,7 @@
 # mez-web
 
+![landing](./screenshots/landing.png)
+
 ## local
 
 run the app
